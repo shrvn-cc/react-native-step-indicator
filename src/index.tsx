@@ -41,14 +41,15 @@ interface DefaultStepIndicatorStyles {
   labelColor: string;
   labelSize: number;
   labelAlign:
-    | 'center'
-    | 'flex-start'
-    | 'flex-end'
-    | 'stretch'
-    | 'baseline'
-    | undefined;
+  | 'center'
+  | 'flex-start'
+  | 'flex-end'
+  | 'stretch'
+  | 'baseline'
+  | undefined;
   currentStepLabelColor: string;
   labelFontFamily?: string;
+  stepIndicatorDirection?: string;
 }
 
 const defaultStyles: DefaultStepIndicatorStyles = {
@@ -76,6 +77,7 @@ const defaultStyles: DefaultStepIndicatorStyles = {
   labelSize: 13,
   labelAlign: 'center',
   currentStepLabelColor: '#4aae4f',
+  stepIndicatorDirection: undefined
 };
 
 const StepIndicator = ({
@@ -231,13 +233,13 @@ const StepIndicator = ({
           styles.stepIndicatorContainer,
           direction === 'vertical'
             ? {
-                flexDirection: 'column',
-                width: customStyles.currentStepIndicatorSize,
-              }
+              flexDirection: 'column',
+              width: customStyles.currentStepIndicatorSize,
+            }
             : {
-                flexDirection: 'row',
-                height: customStyles.currentStepIndicatorSize,
-              },
+              flexDirection: 'row',
+              height: customStyles.currentStepIndicatorSize,
+            },
         ]}
       >
         {steps}
@@ -420,7 +422,9 @@ const StepIndicator = ({
       style={[
         styles.container,
         direction === 'vertical'
-          ? { flexDirection: 'row', flex: 1 }
+          ? (customStyles.stepIndicatorDirection === "reverse")
+            ? { flexDirection: 'row-reverse', flex: 1 }
+            : { flexDirection: 'row', flex: 1 }
           : { flexDirection: 'column' },
       ]}
     >
